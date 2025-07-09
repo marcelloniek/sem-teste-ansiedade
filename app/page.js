@@ -2,19 +2,19 @@
 import { useState } from 'react';
 
 const perguntas = [
-  "Eu sinto um aperto no peito ou uma sensação de sufocamento ao pensar em situações futuras ou decisões que preciso tomar.",
-  "Tenho dificuldade para controlar pensamentos negativos ou preocupantes que ficam repetidamente passando pela minha cabeça.",
-  "Sinto-me inquieto(a), irritado(a) ou incapaz de relaxar, mesmo em momentos que deveriam ser tranquilos.",
-  "Tenho dificuldades significativas em pegar no sono ou acordo frequentemente durante a noite preocupado(a) com situações diversas.",
-  "Evito situações ou tarefas cotidianas por medo excessivo ou antecipação negativa do que pode acontecer.",
-  "Tenho tido pensamentos frequentes sobre não querer mais viver ou que seria melhor sumir para não enfrentar tanta ansiedade.", // FLAG
-  "Sinto sintomas físicos como suor frio, tremores, enjoo ou taquicardia em momentos de tensão ou nervosismo.",
-  "Minhas preocupações interferem diretamente no meu desempenho profissional ou nas minhas relações familiares e pessoais.",
-  "Costumo pensar obsessivamente sobre coisas ruins que podem acontecer comigo ou com pessoas próximas.",
-  "Sinto que minha ansiedade está cada vez pior e fora do meu controle."
+  "Sou perturbado(a) por lembranças indesejadas ou pesadelos relacionados a um evento difícil ou traumático que vivenciei.",
+  "Tenho reações emocionais intensas (medo, angústia ou ansiedade) ao lembrar ou ser exposto(a) a algo que remeta ao trauma.",
+  "Evito conscientemente lugares, pessoas ou situações que possam me lembrar do acontecimento traumático.",
+  "Sinto dificuldade em confiar nas pessoas ou em estabelecer novos relacionamentos após ter passado por experiências difíceis.",
+  "Tenho dificuldades para sentir emoções positivas ou prazer em situações que antes eram agradáveis, após o evento traumático.",
+  "Recentemente, pensei em desistir da vida ou em causar dano físico a mim mesmo(a) devido ao sofrimento causado por lembranças traumáticas.", // FLAG
+  "Sinto frequentemente nervosismo, sobressalto ou vigilância constante, como se algo ruim pudesse acontecer novamente a qualquer momento.",
+  "Percebo alterações significativas no meu sono (insônia ou sono agitado) relacionadas a lembranças ou pensamentos traumáticos.",
+  "Tenho problemas de concentração, memória ou atenção que começaram após um evento emocionalmente intenso ou traumático.",
+  "Tenho me isolado emocionalmente ou socialmente devido ao medo, à vergonha ou à dor que sinto após experiências traumáticas."
 ];
 
-export default function TesteAnsiedade() {
+export default function TesteTrauma() {
   const [respostas, setRespostas] = useState(Array(10).fill(0));
   const [resultado, setResultado] = useState(null);
   const [indiceAtual, setIndiceAtual] = useState(0);
@@ -48,35 +48,21 @@ export default function TesteAnsiedade() {
     setIndiceAtual(0);
   };
 
-  const getImagemResultado = () => {
-    switch (resultado) {
-      case "VERDE":
-        return "/images/semaforo-verde.png";
-      case "AMARELO":
-        return "/images/semaforo-amarelo.png";
-      case "VERMELHO":
-        return "/images/semaforo-vermelho.png";
-      default:
-        return null;
-    }
-  };
-
   return (
     <div className="max-w-xl mx-auto p-6 bg-gray-100 dark:bg-gray-800 rounded-xl shadow-md text-gray-900 dark:text-gray-100">
       {!resultado ? (
         <>
-          <h2 className="text-xl font-semibold mb-2 text-center">Teste de Ansiedade</h2>
-
+          <h2 className="text-xl font-semibold mb-2 text-center">Teste de Trauma</h2>
           <div className="mb-6 text-sm text-gray-700 dark:text-gray-300 text-center">
             <p className="mb-4">
-              Indique com que frequência cada situação acontece com você atualmente:
-              <br />
+              Indique com que frequência cada situação acontece com você atualmente:<br />
               <strong>(1) Nunca | (2) Raramente | (3) Às vezes | (4) Frequentemente | (5) Sempre</strong>
             </p>
           </div>
 
-          <p className="mb-6 text-lg font-medium text-center">{perguntas[indiceAtual]}</p>
-
+          <p className="mb-4">{perguntas[indiceAtual]}</p>
+          
+          
           <div className="flex justify-between items-end mb-4">
             {[1, 2, 3, 4, 5].map((num) => {
               const corGradiente = {
@@ -104,15 +90,21 @@ export default function TesteAnsiedade() {
             })}
           </div>
 
-          <p className="mt-4 text-sm text-center">
-            Pergunta {indiceAtual + 1} de {perguntas.length}
-          </p>
+
+          <p className="mt-4 text-sm">Pergunta {indiceAtual + 1} de {perguntas.length}</p>
         </>
       ) : (
         <>
+          
           <h2 className="text-xl font-semibold mb-4 text-center">Resultado: {resultado}</h2>
           <img
-            src={getImagemResultado()}
+            src={
+              resultado === "VERDE"
+                ? "/images/semaforo-verde.png"
+                : resultado === "AMARELO"
+                ? "/images/semaforo-amarelo.png"
+                : "/images/semaforo-vermelho.png"
+            }
             alt={`Indicador ${resultado}`}
             className="w-40 h-auto mx-auto mb-4"
           />
@@ -131,6 +123,7 @@ export default function TesteAnsiedade() {
           >
             Refazer teste
           </button>
+
         </>
       )}
     </div>
