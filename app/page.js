@@ -63,30 +63,34 @@ export default function TesteAnsiedade() {
 
           <p className="mb-4">{perguntas[indiceAtual]}</p>
           
+          
           <div className="flex justify-between items-end mb-4">
-            {[1, 2, 3, 4, 5].map((num) => (
-              <button
-                key={num}
-                onClick={() => registrarResposta(num)}
-                className={`flex items-center justify-center rounded-full text-white font-bold hover:scale-110 transition transform bg-gradient-to-br ${
-                  {{
-                    1: "from-gray-300 to-gray-400",
-                    2: "from-blue-200 to-blue-300",
-                    3: "from-blue-300 to-blue-400",
-                    4: "from-blue-500 to-blue-600",
-                    5: "from-blue-700 to-blue-800",
-                  }}[num]
-                }`}
-                style={{
-                  width: `${30 + num * 5}px`,
-                  height: `${30 + num * 5}px`,
-                  fontSize: `${12 + num}px`
-                }}
-              >
-                {num}
-              </button>
-            ))}
+            {[1, 2, 3, 4, 5].map((num) => {
+              const corGradiente = {
+                1: "from-gray-300 to-gray-400",
+                2: "from-blue-200 to-blue-300",
+                3: "from-blue-300 to-blue-400",
+                4: "from-blue-500 to-blue-600",
+                5: "from-blue-700 to-blue-800",
+              };
+
+              return (
+                <button
+                  key={num}
+                  onClick={() => registrarResposta(num)}
+                  className={`flex items-center justify-center rounded-full text-white font-bold hover:scale-110 transition transform bg-gradient-to-br ${corGradiente[num]}`}
+                  style={{
+                    width: `${30 + num * 5}px`,
+                    height: `${30 + num * 5}px`,
+                    fontSize: `${12 + num}px`
+                  }}
+                >
+                  {num}
+                </button>
+              );
+            })}
           </div>
+
 
           <p className="mt-4 text-sm">Pergunta {indiceAtual + 1} de {perguntas.length}</p>
         </>
