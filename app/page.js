@@ -1,5 +1,4 @@
 "use client";
-
 import { useState } from 'react';
 
 const perguntas = [
@@ -33,7 +32,7 @@ export default function TesteAnsiedade() {
   };
 
   const calcularResultado = (respostas) => {
-    if (respostas[5] >= 3) { // FLAG
+    if (respostas[5] >= 3) {
       setResultado("VERMELHO");
     } else {
       const soma = respostas.reduce((a, b) => a + b, 0);
@@ -49,21 +48,35 @@ export default function TesteAnsiedade() {
     setIndiceAtual(0);
   };
 
+  const getImagemResultado = () => {
+    switch (resultado) {
+      case "VERDE":
+        return "/images/semaforo-verde.png";
+      case "AMARELO":
+        return "/images/semaforo-amarelo.png";
+      case "VERMELHO":
+        return "/images/semaforo-vermelho.png";
+      default:
+        return null;
+    }
+  };
+
   return (
     <div className="max-w-xl mx-auto p-6 bg-gray-100 dark:bg-gray-800 rounded-xl shadow-md text-gray-900 dark:text-gray-100">
       {!resultado ? (
         <>
           <h2 className="text-xl font-semibold mb-2 text-center">Teste de Ansiedade</h2>
+
           <div className="mb-6 text-sm text-gray-700 dark:text-gray-300 text-center">
             <p className="mb-4">
-              Indique com que frequência cada situação acontece com você atualmente:<br />
+              Indique com que frequência cada situação acontece com você atualmente:
+              <br />
               <strong>(1) Nunca | (2) Raramente | (3) Às vezes | (4) Frequentemente | (5) Sempre</strong>
             </p>
           </div>
 
-          <p className="mb-4">{perguntas[indiceAtual]}</p>
-          
-          
+          <p className="mb-6 text-lg font-medium text-center">{perguntas[indiceAtual]}</p>
+
           <div className="flex justify-between items-end mb-4">
             {[1, 2, 3, 4, 5].map((num) => {
               const corGradiente = {
@@ -91,17 +104,29 @@ export default function TesteAnsiedade() {
             })}
           </div>
 
-
-          <p className="mt-4 text-sm">Pergunta {indiceAtual + 1} de {perguntas.length}</p>
+          <p className="mt-4 text-sm text-center">
+            Pergunta {indiceAtual + 1} de {perguntas.length}
+          </p>
         </>
       ) : (
         <>
-          <h2 className="text-xl font-semibold mb-4">Resultado: {resultado}</h2>
-          {resultado === "VERDE" && <p>Você lida muito bem com esse tema e está emocionalmente bem resolvido. Poderá auxiliar grandemente outras pessoas que precisam de ajuda.</p>}
-          {resultado === "AMARELO" && <p>Há sinais evidentes de dificuldades emocionais que precisam ser trabalhadas e que, com determinação e ajuda, poderão ser superadas.</p>}
-          {resultado === "VERMELHO" && <p>Seus problemas emocionais com este tema precisam necessariamente de ajuda profissional. Procure com brevidade a ajuda de um médico ou psicólogo.</p>}
+          <h2 className="text-xl font-semibold mb-4 text-center">Resultado: {resultado}</h2>
+          <img
+            src={getImagemResultado()}
+            alt={`Indicador ${resultado}`}
+            className="w-40 h-auto mx-auto mb-4"
+          />
+          {resultado === "VERDE" && (
+            <p className="text-center">Você lida muito bem com esse tema e está emocionalmente bem resolvido. Poderá auxiliar grandemente outras pessoas que precisam de ajuda.</p>
+          )}
+          {resultado === "AMARELO" && (
+            <p className="text-center">Há sinais evidentes de dificuldades emocionais que precisam ser trabalhadas e que, com determinação e ajuda, poderão ser superadas.</p>
+          )}
+          {resultado === "VERMELHO" && (
+            <p className="text-center">Seus problemas emocionais com este tema precisam necessariamente de ajuda profissional. Procure com brevidade a ajuda de um médico ou psicólogo.</p>
+          )}
           <button
-            className="mt-4 px-4 py-2 bg-green-500 dark:bg-green-600 text-white rounded hover:bg-green-600 dark:hover:bg-green-700"
+            className="mt-6 px-4 py-2 bg-green-500 dark:bg-green-600 text-white rounded hover:bg-green-600 dark:hover:bg-green-700 block mx-auto"
             onClick={reiniciarTeste}
           >
             Refazer teste
